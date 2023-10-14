@@ -1,0 +1,65 @@
+<h1>Popular</h1>
+
+<div *ngIf="loading; else popMoives">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #popMoives>
+  <div class="row flex-nowrap overflow-auto">
+    <div
+      class="col"
+      *ngFor="let movie of popularMovies"
+      [routerLink]="'/details/' + movie.id"
+    >
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        alt=""
+        height="150"
+      />
+      <p>{{ movie.title }}</p>
+      <p>{{ movie.id }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<h1>Now Playing Moives</h1>
+
+<div class="row flex-nowrap overflow-auto">
+  <div class="col" *ngFor="let movie of nowplayingMovies">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+      alt=""
+      height="150"
+    />
+    <p>{{ movie.title }}</p>
+  </div>
+</div>
+
+<br />
+
+<h1>Upcoming Movies</h1>
+<div class="row flex-nowrap overflow-auto">
+  <div class="col" *ngFor="let movie of upcomingMovies">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+      alt=""
+      height="150"
+    />
+    <p>{{ movie.title }}</p>
+  </div>
+</div>
+
+<br />
+
+<h1>Top Rated Movies</h1>
+
+<div class="row flex-nowrap overflow-auto">
+  <div class="col" *ngFor="let movie of topratedMovies">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+      alt=""
+      height="150"
+    />
+    <p>{{ movie.title }}</p>
+  </div>
+</div>

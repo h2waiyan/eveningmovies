@@ -1,1 +1,64 @@
-<p>login works!</p>
+<div class="container">
+  <h1>Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <label for="username" class="form-label">Username: </label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      class="form-control"
+      formControlName="username"
+    />
+    <span
+      *ngIf="
+        loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched
+      "
+      class="text-muted"
+    >
+      Username cannot be blank.</span
+    >
+    <span
+      *ngIf="
+        loginForm.get('username')?.errors?.['email'] && loginForm.get('username')?.touched
+      "
+      class="text-muted"
+    >
+      Invalid Email Format</span
+    >
+
+    <br />
+
+    <label for="password" class="form-label">Password: </label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      formControlName="password"
+    />
+    <span
+      class="text-muted"
+      *ngIf="
+        loginForm.controls['password'].errors?.['required'] &&
+        loginForm.controls['password'].touched
+      "
+    >
+      Please enter your password
+    </span>
+    <span
+      class="text-muted"
+      *ngIf="
+        loginForm.controls['password'].errors?.['minlength'] &&
+        loginForm.controls['password'].touched
+      "
+    >
+      Password should be at least 5 characters.
+    </span>
+
+    <br />
+
+    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
+  </form>
+</div>

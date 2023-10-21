@@ -20,7 +20,26 @@ export class HomeComponent {
   nowplayingMovies: Result[] = [];
   upcomingMovies: Result[] = [];
   topratedMovies: Result[] = [];
+  searchResults: Result[] = [];
 
+  searchName: String = '';
+
+  searchMovie() {
+    // alert(`>>>>>> Searching... ${this.searchName}`);
+    this.apiService.searchMovie(this.searchName).subscribe(
+      {
+        next: (data: MovieResponse) => {
+          this.searchResults = data.results!;
+          this.loading = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err.message, err.status,);
+          alert(`Something went wrong. ${err.message}`);
+          this.loading = false;
+        }
+      }
+    )
+  }
 
   ngOnInit() {
 

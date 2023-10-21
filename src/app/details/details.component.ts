@@ -15,6 +15,8 @@ export class DetailsComponent {
   casts = [];
   overview: any = {};
 
+  backdropImage = '';
+
   ngOnInit() {
 
     this.movieId = this.activatedRoute.snapshot.params['id'];
@@ -33,6 +35,8 @@ export class DetailsComponent {
       next: (data: any) => {
         console.log(data);
         this.overview = data;
+        this.backdropImage = "https://image.tmdb.org/t/p/w500" + this.overview['backdrop_path']
+        console.log(this.backdropImage);
       },
       error: (err: HttpErrorResponse) => {
         console.log(err);

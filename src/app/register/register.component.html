@@ -1,13 +1,43 @@
 <p>register works!</p>
 
-<div>
-  <form>
+<div class="container">
+  <form (ngSubmit)="register(f)" #f="ngForm">
     <label for="username" class="form-label">Username: </label>
-    <input type="text" name="username" id="username" class="form-control" />
+    <input
+      required
+      minlength="5"
+      type="text"
+      name="username"
+      id="username"
+      class="form-control"
+      [(ngModel)]="username"
+      #usr="ngModel"
+    />
+    <span class="text-muted" *ngIf="usr.errors?.['required'] && usr.touched"
+      >Please enter username</span
+    >
+    <span class="text-muted" *ngIf="usr.errors?.['minlength'] && usr.touched"
+      >Username should be at least 5 characters.</span
+    >
+
+    <br />
 
     <label for="password" class="form-label">Password: </label>
-    <input type="password" name="password" id="password" class="form-control" />
+    <input
+      required
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      [(ngModel)]="password"
+      #pass="ngModel"
+    />
+    <span class="text_muted" *ngIf="!pass.valid && pass.touched"
+      >Please enter password</span
+    >
 
-    <button class="btn btn-primary">register</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+      register
+    </button>
   </form>
 </div>

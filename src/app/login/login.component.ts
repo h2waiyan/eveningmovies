@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  // username = new FormControl('msitt')
+  // password = new FormControl('')
+
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5)])
+  })
+
+  login() {
+    console.log(this.loginForm);
+    // this.username.setValue("-----");
+    // alert(this.loginForm.value);
+  }
 }

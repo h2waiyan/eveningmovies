@@ -1,3 +1,24 @@
+<input type="text" class="form-label" [(ngModel)]="searchName" />
+<button class="btn btn-primary" (click)="searchMovie()">Search</button>
+
+<div *ngIf="searchResults != []">
+  <div class="row flex-nowrap overflow-auto">
+    <div
+      class="col"
+      *ngFor="let movie of searchResults"
+      [routerLink]="'/details/' + movie.id"
+    >
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        alt=""
+        height="150"
+      />
+      <p>{{ movie.title }}</p>
+      <p>{{ movie.id }}</p>
+    </div>
+  </div>
+</div>
+
 <h1>Popular</h1>
 
 <div *ngIf="loading; else popMoives">

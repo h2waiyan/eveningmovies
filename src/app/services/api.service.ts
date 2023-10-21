@@ -20,7 +20,13 @@ export class ApiService {
     return this.http.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=050c28541f900007285c3020069bfd62`)
   }
 
+  searchMovie(movieName: String) {
+    return this.http.get(`https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1&api_key=050c28541f900007285c3020069bfd62`)
+
+  }
+
   getRecommendedMovies() {
 
   }
 }
+

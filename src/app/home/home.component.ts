@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 import { Result, MovieResponse } from './movie_interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,8 @@ export class HomeComponent {
   upcomingMovies: Result[] = [];
   topratedMovies: Result[] = [];
   searchResults: Result[] = [];
-
   searchName: String = '';
+  movieSubscription: Subscription = new Subscription();
 
   searchMovie() {
     // alert(`>>>>>> Searching... ${this.searchName}`);
@@ -41,34 +42,68 @@ export class HomeComponent {
     )
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.apiService.getMovies('popular').subscribe(
+    // this.getMovie('popular')
+    //   .then((pR) => {
+    //     this.popularMovies = pR as Result[]
+    //   })
+    //   .catch((error: any) => {
+    //     alert("Something wrong")
+    //   })
+    //   .finally(() => {
+    //     this.loading = false;
+    //   })
+
+    try {
+      this.popularMovies = await this.getMovie('popular') as Result[];
+      this.loading = false;
+    } catch (error: any) {
+      alert("Something wrong");
+      this.loading = false;
+    }
+
+    this.nowplayingMovies = await this.getMovie('now_playing') as Result[];
+    this.upcomingMovies = await this.getMovie('upcoming') as Result[];
+
+
+    this.movieSubscription = this.apiService.getMovies('top_rated').subscribe(
       {
         next: (data: MovieResponse) => {
-          this.popularMovies = data.results!;
-          this.loading = false;
+          console.log(data);
+          this.topratedMovies = data.results!;
         },
         error: (err: HttpErrorResponse) => {
           console.log(err.message, err.status,);
           alert(`Something went wrong. ${err.message}`);
-          this.loading = false;
         }
       }
     )
+  }
 
-    this.apiService.getMovies('upcoming').subscribe(
-      (data: MovieResponse) => {
-        this.upcomingMovies = data.results!;
-      }
-    )
+  getMovie(movieType: String) {
+    return new Promise((resolve, reject) => {
+      this.movieSubscription = this.apiService.getMovies(movieType).subscribe(
+        {
+          next: (data: MovieResponse) => {
+            console.log(data);
 
-    this.apiService.getMovies('top_rated').subscribe((data: MovieResponse) => {
-      this.topratedMovies = data.results!;
+            resolve(data.results as Result);
+          },
+          error: (err: HttpErrorResponse) => {
+            console.log(err.message, err.status,);
+            alert(`Something went wrong. ${err.message}`);
+
+            reject(err)
+          }
+        }
+      )
     })
+  }
 
-    this.apiService.getMovies('now_playing').subscribe((data: MovieResponse) => {
-      this.nowplayingMovies = data.results!;
-    })
+  ngOnDestroy() {
+    if (this.movieSubscription) {
+      this.movieSubscription.unsubscribe();
+    }
   }
 }

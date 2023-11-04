@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 import { Result, MovieResponse } from './movie_interface';
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,8 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent {
   constructor(
+    private router: Router,
+    private cookieService: CookieService,
     private http: HttpClient,
     private apiService: ApiService
   ) {
@@ -24,6 +28,11 @@ export class HomeComponent {
   searchResults: Result[] = [];
   searchName: String = '';
   movieSubscription: Subscription = new Subscription();
+
+  logout() {
+    this.cookieService.delete('token');
+    this.router.navigateByUrl('login')
+  }
 
   searchMovie() {
     // alert(`>>>>>> Searching... ${this.searchName}`);
@@ -43,6 +52,8 @@ export class HomeComponent {
   }
 
   async ngOnInit() {
+
+
 
     // this.getMovie('popular')
     //   .then((pR) => {

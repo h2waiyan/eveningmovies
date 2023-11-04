@@ -1,5 +1,9 @@
-<input type="text" class="form-label" [(ngModel)]="searchName" />
-<button class="btn btn-primary" (click)="searchMovie()">Search</button>
+<div>
+  <input type="text" class="form-label" [(ngModel)]="searchName" />
+  <button class="btn btn-primary" (click)="searchMovie()">Search</button>
+
+  <button class="btn btn-warning" (click)="logout()">Logout</button>
+</div>
 
 <div *ngIf="searchResults != []">
   <div class="row flex-nowrap overflow-auto">

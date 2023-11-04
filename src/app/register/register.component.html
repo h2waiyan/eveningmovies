@@ -2,6 +2,26 @@
 
 <div class="container">
   <form (ngSubmit)="register(f)" #f="ngForm">
+    <label for="email" class="form-label">Email: </label>
+    <input
+      required
+      minlength="5"
+      type="text"
+      name="email"
+      id="email"
+      class="form-control"
+      [(ngModel)]="email"
+      #emil="ngModel"
+    />
+    <span class="text-muted" *ngIf="emil.errors?.['required'] && emil.touched"
+      >Please enter email</span
+    >
+    <span class="text-muted" *ngIf="emil.errors?.['minlength'] && emil.touched"
+      >Email should be at least 5 characters.</span
+    >
+
+    <br />
+
     <label for="username" class="form-label">Username: </label>
     <input
       required

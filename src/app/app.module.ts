@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MovieComponent } from './movie/movie.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CookieService } from 'ngx-cookie-service';
     LoadingComponent,
     DetailsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,

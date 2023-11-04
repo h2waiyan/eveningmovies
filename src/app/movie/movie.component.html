@@ -1,0 +1,12 @@
+<h1>{{ movieTitle }}</h1>
+
+<div class="row flex-nowrap overflow-auto">
+  <div class="col" *ngFor="let movie of movieList">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+      alt=""
+      height="150"
+    />
+    <p>{{ movie.title }}</p>
+  </div>
+</div>

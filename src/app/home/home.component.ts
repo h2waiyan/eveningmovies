@@ -20,13 +20,14 @@ export class HomeComponent {
   ) {
   }
 
+  search = false;
   loading = true;
   popularMovies: Result[] = [];
   nowplayingMovies: Result[] = [];
   upcomingMovies: Result[] = [];
   topratedMovies: Result[] = [];
   searchResults: Result[] = [];
-  searchName: String = '';
+  searchName: String = 'batman';
   movieSubscription: Subscription = new Subscription();
 
   logout() {
@@ -35,6 +36,7 @@ export class HomeComponent {
   }
 
   searchMovie() {
+    this.search = true;
     // alert(`>>>>>> Searching... ${this.searchName}`);
     this.apiService.searchMovie(this.searchName).subscribe(
       {

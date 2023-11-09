@@ -5,23 +5,28 @@
   <button class="btn btn-warning" (click)="logout()">Logout</button>
 </div>
 
-<div *ngIf="searchResults != []">
-  <div class="row flex-nowrap overflow-auto">
-    <div
-      class="col"
-      *ngFor="let movie of searchResults"
-      [routerLink]="'/details/' + movie.id"
-    >
-      <img
-        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-        alt=""
-        height="150"
-      />
-      <p>{{ movie.title }}</p>
-      <p>{{ movie.id }}</p>
+<ng-container *ngIf="search">
+  <div *ngIf="searchResults == []">
+    <h1>No Result found.</h1>
+  </div>
+  <div *ngIf="searchResults != []">
+    <div class="row flex-nowrap overflow-auto">
+      <div
+        class="col"
+        *ngFor="let movie of searchResults"
+        [routerLink]="'/details/' + movie.id"
+      >
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          alt=""
+          height="150"
+        />
+        <p>{{ movie.title }}</p>
+        <p>{{ movie.id }}</p>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
 
 <!-- <h1>Popular</h1> -->
 <app-movie movieTitle="This is popular section."></app-movie>
